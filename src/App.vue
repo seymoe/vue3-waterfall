@@ -5,11 +5,6 @@
         <img :src="item.src" :alt="item.title">
       </div>
     </template>
-    <template v-slot:footer="{ item }">
-      <p class="title">
-        <a href="#">{{ item.title }}</a>
-      </p>
-    </template>
   </waterfall>
 </template>
 
@@ -21,42 +16,56 @@ export default defineComponent({
   name: 'App',
   data() {
     return {
-      list: [
-        'https://cdn.xnycloud.com/xny-data/_f26d6f3e95.png',
-        'https://cdn.xnycloud.com/xny-data/_80f88fea20.png',
-        'https://cdn.xnycloud.com/xny-data/2060_df48245eba.png',
-        'https://cdn.xnycloud.com/xny-data/_8fa7009f0b.png',
-        'https://cdn.xnycloud.com/xny-data/_b6314ece09.png',
-        'https://cdn.xnycloud.com/xny-data/_1c84aa29f6.png',
-        'https://cdn.xnycloud.com/xny-data/_c741508c19.png',
-        'https://cdn.xnycloud.com/xny-data/_cf90ba23b7.png',
-        'https://cdn.xnycloud.com/xny-data/2030_2060_828d7d35cc.png',
-        'https://cdn.xnycloud.com/xny-data/_f26d6f3e95.png',
-        'https://cdn.xnycloud.com/xny-data/_80f88fea20.png',
-        'https://cdn.xnycloud.com/xny-data/2060_df48245eba.png',
-        'https://cdn.xnycloud.com/xny-data/_8fa7009f0b.png',
-        'https://cdn.xnycloud.com/xny-data/_b6314ece09.png',
-        'https://cdn.xnycloud.com/xny-data/_1c84aa29f6.png',
-        'https://cdn.xnycloud.com/xny-data/_c741508c19.png',
-        'https://cdn.xnycloud.com/xny-data/_cf90ba23b7.png',
-        'https://cdn.xnycloud.com/xny-data/2030_2060_828d7d35cc.png'
-      ]
+      list: []
     }
   },
   components: {
     Waterfall
+  },
+  mounted() {
+    // setTimeout(() => {
+    //   this.list = [
+    //     {
+    //       id: 1,
+    //       imgSrc: 'https://cdn.xnycloud.com/xny-data/_f26d6f3e95.png',
+    //       title: '111',
+    //       info: '222'
+    //     },
+    //     {
+    //       id: 2,
+    //       imgSrc: 'https://cdn.xnycloud.com/xny-data/2060_df48245eba.png',
+    //       title: '111',
+    //       info: '222'
+    //     },
+    //     {
+    //       id: 3,
+    //       imgSrc: 'https://cdn.xnycloud.com/xny-data/_8fa7009f0b.png',
+    //       title: '111',
+    //       info: '222'
+    //     },
+    //     {
+    //       id: 4,
+    //       imgSrc: 'https://cdn.xnycloud.com/xny-data/_b6314ece09.png',
+    //       title: '111',
+    //       info: '222'
+    //     }
+    //   ]
+    // }, 3000)
   }
-})
+ })
 </script>
 
 <style>
 html, body, #app{
   width: 100%;
+  height: 100%;
 }
 body{
   margin: 0;
 }
 #app {
+  width: 300px;
+  margin: 0 auto;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

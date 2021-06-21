@@ -3,22 +3,22 @@
     <div
       v-for="(item, index) in waterfallList"
       :key="index"
-      class="waterfall-item" :style="{top: item.top+'px', left: item.left+'px', width: item.width+'px', height:item.height+'px'}">
+      class="vue3-waterfall-item" :style="{top: item.top+'px', left: item.left+'px', width: item.width+'px', height:item.height+'px'}">
         <slot :item="item">
           <img :src="item.src" :alt="item.title">
+          <div class="vue3-waterfall-item_footer">
+            <slot name="footer" :item="item">
+              <p class="title">{{ item.title }}</p>
+              <p class="info">{{ item.info }}</p>
+            </slot>
+          </div>
         </slot>
-        <div class="waterfall-item_footer">
-          <slot name="footer" :item="item">
-            <p class="title">{{ item.title }}</p>
-            <p class="info">{{ item.info }}</p>
-          </slot>
-        </div>
       </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, onMounted, onUnmounted } from 'vue'
+import { defineComponent, reactive, toRefs, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
 interface IOption {
   value?: string | number | boolean,
@@ -37,7 +37,7 @@ interface IWaterfallProps {
 }
 
 export default defineComponent({
-  name: 'Vue3Waterfall',
+  name: 'VueWaterfall',
   props: {
     width: Number,
     height: Number,
@@ -45,7 +45,7 @@ export default defineComponent({
     cols: Number,
     gap: {
       type: Number,
-      default: 20
+      default: 0
     },
     footerHeight: {
       type: Number,
@@ -91,9 +91,9 @@ export default defineComponent({
       }
       // 初始化列宽
       if (props.cols) {
-        state.colWidth = Math.floor(state.containerWidth / props.cols)
+        state.colWidth = Math.floor(state.containerWidth / props.cols - props.gap)
       } else {
-        state.colCount = Math.floor(state.containerWidth / state.colWidth)
+        state.colCount = Math.floor(state.containerWidth / (state.colWidth + props.gap))
       }
       if (state.beginIndex === 0) {
         state.waterfallList = []
@@ -108,14 +108,14 @@ export default defineComponent({
     const preloadImages = () => {
       for (let i = state.beginIndex; i < props.list.length; i++) {
         let aImg = new Image()
-        aImg.src = props.list[i]
+        aImg.src = props.list[i].imgSrc
         aImg.onload = aImg.onerror = (e: any) => {
-          let imgData: any = {}
-          imgData.width = state.colWidth
-          imgData.height = state.colWidth / aImg.width * aImg.height + props.footerHeight
-          imgData.src = props.list[i]
-          imgData.title = '标题'
-          imgData.info = '详情说明：啦啦啦啦啦'
+          let imgData: any = {
+            width: state.colWidth,
+            height: state.colWidth / aImg.width * aImg.height + props.footerHeight,
+            src: props.list[i].imgSrc,
+            ...props.list[i]
+          }
           state.waterfallList.push(imgData)
           rankImage(imgData)
         }
@@ -140,9 +140,18 @@ export default defineComponent({
       initWaterfall()
     }
 
+    watch(() => props.list, (val, oldVal) => {
+      if (!oldVal || !oldVal.length && val.length) {
+        nextTick(() => {
+          initWaterfall()
+        })
+      }
+    }, {
+      immediate: true
+    })
+
     onMounted(() => {
       window.addEventListener('resize', response)
-      initWaterfall()
     })
 
     onUnmounted(() => {
@@ -160,22 +169,24 @@ export default defineComponent({
 <style scoped>
 .vue3-waterfall{
   position: relative;
+  width: 100%;
+  height: 100%;
 }
-.waterfall-item{
+.vue3-waterfall-item{
   position: absolute;
 }
-.waterfall-item img{
+.vue3-waterfall-item img{
   display: block;
   width: 100%;
   height: auto;
 }
-.waterfall-item_footer{
+.vue3-waterfall-item_footer{
   padding: 15px;
 }
-.waterfall-item_footer .title{
+.vue3-waterfall-item_footer .title{
   margin: 0;
 }
-.waterfall-item_footer .info{
+.vue3-waterfall-item_footer .info{
   margin: 0;
 }
 </style>
