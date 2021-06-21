@@ -1,6 +1,6 @@
 {
   "name": "vue3-waterfall",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "file": ["dist"],
   "main": "./dist/vue3-waterfall.umd.js",
   "module": "./dist/vue3-waterfall.es.js",
