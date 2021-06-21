@@ -1,0 +1,29 @@
+{
+  "name": "vue3-waterfall",
+  "version": "0.0.0",
+  "file": ["dist"],
+  "main": "./dist/vue3-waterfall.umd.js",
+  "module": "./dist/vue3-waterfall.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-waterfall.es.js",
+      "require": "./dist/vue3-waterfall.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.4",
+    "@vitejs/plugin-vue": "^1.2.3",
+    "@vue/compiler-sfc": "^3.0.5",
+    "typescript": "^4.3.2",
+    "vite": "^2.3.7",
+    "vue-tsc": "^0.0.24"
+  }
+}
