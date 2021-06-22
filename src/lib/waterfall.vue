@@ -3,16 +3,16 @@
     <div
       v-for="(item, index) in waterfallList"
       :key="index"
-      class="vue3-waterfall-item" :style="{top: item.top+'px', left: item.left+'px', width: item.width+'px', height:item.height+'px'}">
+      class="vue3-waterfall-item" :style="{top: item._top+'px', left: item._left+'px', width: item._width+'px', height:item._height+'px'}">
         <slot :item="item">
-          <img :src="item.src" :alt="item.title">
-          <div class="vue3-waterfall-item_footer">
-            <slot name="footer" :item="item">
-              <p class="title">{{ item.title }}</p>
-              <p class="info">{{ item.info }}</p>
-            </slot>
-          </div>
+          <img :src="item._src" :alt="item.title">
         </slot>
+        <div class="vue3-waterfall-item_footer">
+          <slot name="footer" :item="item">
+            <p class="title">{{ item.title }}</p>
+            <p class="info">{{ item.info }}</p>
+          </slot>
+        </div>
       </div>
   </div>
 </template>
@@ -20,19 +20,13 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
-interface IOption {
-  value?: string | number | boolean,
-  label?: string | number
-}
-
 interface IWaterfallProps {
   width?: number
   height?: number
   gap: number
-  imgWidth?: number
+  colWidth?: number
   cols?: number
   footerHeight: number
-  option?: IOption
   list: any[]
 }
 
@@ -41,7 +35,7 @@ export default defineComponent({
   props: {
     width: Number,
     height: Number,
-    imgWidth: Number,
+    colWidth: Number,
     cols: Number,
     gap: {
       type: Number,
@@ -51,13 +45,6 @@ export default defineComponent({
       type: Number,
       default: 80
     },
-    option: {
-      type: Object,
-      default: {
-        value: 'value',
-        label: 'label'
-      }
-    },
     list: {
       type: Array,
       default: () => ([])
@@ -66,7 +53,7 @@ export default defineComponent({
   setup(props: IWaterfallProps) {
     const state: {
       containerWidth: number
-      colWidth: number
+      colW: number
       colCount: number
       beginIndex: number
       heightArr: number[]
@@ -75,7 +62,7 @@ export default defineComponent({
       // 容器宽
       containerWidth: props.width || 0,
       // 列宽
-      colWidth: props.imgWidth || 240,
+      colW: props.colWidth || 240,
       // 列数
       colCount: props.cols || 0,
       beginIndex: 0,
@@ -91,9 +78,9 @@ export default defineComponent({
       }
       // 初始化列宽
       if (props.cols) {
-        state.colWidth = Math.floor(state.containerWidth / props.cols - props.gap)
+        state.colW = Math.floor(state.containerWidth / props.cols - props.gap)
       } else {
-        state.colCount = Math.floor(state.containerWidth / (state.colWidth + props.gap))
+        state.colCount = Math.floor(state.containerWidth / (state.colW + props.gap))
       }
       if (state.beginIndex === 0) {
         state.waterfallList = []
@@ -107,27 +94,20 @@ export default defineComponent({
 
     const preloadImages = () => {
       for (let i = state.beginIndex; i < props.list.length; i++) {
-        let aImg = new Image()
-        aImg.src = props.list[i].imgSrc
-        aImg.onload = aImg.onerror = (e: any) => {
-          let imgData: any = {
-            width: state.colWidth,
-            height: state.colWidth / aImg.width * aImg.height + props.footerHeight,
-            src: props.list[i].imgSrc,
-            ...props.list[i]
-          }
-          state.waterfallList.push(imgData)
-          rankImage(imgData)
+        const item = props.list[i]
+        let img = new Image()
+        img.src = item.imgSrc
+        img.onload = img.onerror = (e: any) => {
+          const minIndex = filterMin()
+          item._width = state.colW
+          item._height = state.colW * img.height / img.width + props.footerHeight
+          item._top = state.heightArr[minIndex]
+          item._left = minIndex * (item._width + props.gap)
+          state.heightArr[minIndex] += item._height
+          state.waterfallList.push(item)
         }
       }
       state.beginIndex = state.waterfallList.length
-    }
-
-    const rankImage = (imgData: any) => {
-      const minIndex = filterMin()
-      imgData.top = state.heightArr[minIndex]
-      imgData.left = minIndex * (imgData.width + props.gap)
-      state.heightArr[minIndex] += imgData.height
     }
 
     const filterMin = () => {
@@ -174,6 +154,7 @@ export default defineComponent({
 }
 .vue3-waterfall-item{
   position: absolute;
+  box-sizing: border-box;
 }
 .vue3-waterfall-item img{
   display: block;
