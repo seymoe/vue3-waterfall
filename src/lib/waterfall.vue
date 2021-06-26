@@ -6,9 +6,11 @@
         :key="index"
         class="vue3-waterfall-item" :style="{top: item._top+'px', left: item._left+'px', width: item._width+'px', height:item._height+'px'}"
       >
-        <slot :item="item">
-          <img :src="item.imgSrc" :alt="item.title">
-        </slot>
+        <div class="vue3-waterfall-item_image">
+          <slot :item="item">
+            <img :src="item.imgSrc">
+          </slot>
+        </div>
         <div class="vue3-waterfall-item_footer" :style="{height: footerHeight + 'px'}">
           <slot name="footer" :item="item">
             <p class="title">{{ item.title }}</p>
@@ -121,10 +123,10 @@ export default defineComponent({
           state.heightArr[i] = 0
         }
       }
-      preloadImages()
+      preload()
     }
 
-    const preloadImages = () => {
+    const preload = () => {
       for (let i = state.beginIndex; i < props.list.length; i++) {
         const item = props.list[i]
         let img = new Image()
@@ -135,7 +137,7 @@ export default defineComponent({
           item._height = Math.floor(state.colW * img.height / img.width + props.footerHeight)
           item._top = state.heightArr[minIndex]
           item._left = minIndex * (item._width + props.gap)
-          state.heightArr[minIndex] += item._height
+          state.heightArr[minIndex] += (item._height + props.gap)
           state.waterfallList.push(item)
           if (e.type === 'error') {
             item._error = true
@@ -168,19 +170,29 @@ export default defineComponent({
       if (state.isPreloading) return false
       const scrollEl = scrollElRef.value
       const minHeight = Math.max.apply(null, state.heightArr)
-      if (scrollEl !== null && scrollEl.scrollTop + scrollEl.offsetHeight >= minHeight - props.scrollDistance) {
+      if (scrollEl !== null && scrollEl.scrollTop + scrollEl.offsetHeight + props.gap >= minHeight - props.scrollDistance) {
         state.isPreloading = true
         ctx.emit('scrollReachBottom') // 滚动触底
       }
     }
 
+    const reset = () => {
+      state.beginIndex = 0
+      initWaterfall()
+    }
+
     watch(() => props.list, (val, oldVal) => {
-      if (!oldVal || !oldVal.length && val.length) {
-        nextTick(() => {
-          initWaterfall()
-        })
-      } else if (oldVal.length !== val.length) {
-        preloadImages()
+      if (val.length) {
+        // 首次
+        if (!oldVal || !oldVal.length) {
+          nextTick(() => {
+            initWaterfall()
+          })
+        } else if (oldVal.length !== val.length) {
+          preload()
+        }
+      } else {
+        reset()
       }
     }, {
       immediate: true
@@ -224,6 +236,7 @@ export default defineComponent({
 .vue3-waterfall-item{
   position: absolute;
   box-sizing: border-box;
+  box-shadow: 0 2px 6px 0 rgb(0 0 0 / 10%);
 }
 .vue3-waterfall-item img{
   display: block;

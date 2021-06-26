@@ -37,6 +37,9 @@ export default defineComponent({
   },
   methods: {
     loadMore() {
+      if (this.list.length > 20) {
+        this.list = []
+      }
       setTimeout(() => {
         this.list = this.list.concat([
           {
