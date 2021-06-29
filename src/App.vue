@@ -4,6 +4,7 @@
     :cols="4"
     :footerHeight="60"
     :gap="15"
+    :scrollDistance="10"
     @preLoaded="loadedEnd"
     @scrollReachBottom="loadMore">
     <template v-slot:default="{ item }">
@@ -12,7 +13,10 @@
       </div>
     </template>
     <template v-slot:footer="{ item }">
-      <span>{{ item.title }}</span>
+      <span>{{ item.id }}</span>
+    </template>
+    <template v-slot:loading>
+      <span>正在拼命加载中...</span>
     </template>
   </waterfall>
 </template>
@@ -73,36 +77,36 @@ export default defineComponent({
         {
           id: 1,
           imgSrc: 'https://cdn.xnycloud.com/xny-data/_f26d6f3e95.png',
-          title: '111',
+          title: '1',
           info: '222'
         },
         {
-          id: 6,
-          imgSrc: 'https://cdn.xnycloud.com/xny-data/2060_df48245eba.png',
-          title: '111',
+          id: 2,
+          imgSrc: 'https://cdn.xnycloud.com/xny-data/_d53e0ea860.png',
+          title: '6',
+          info: '222'
+        },
+        {
+          id: 3,
+          imgSrc: 'https://cdn.xnycloud.com/xny-data/_b6314ece09.png',
+          title: '4',
           info: '222'
         },
         {
           id: 4,
-          imgSrc: 'https://cdn.xnycloud.com/xny-data/_b6314ece09.png',
-          title: '111',
-          info: '222'
-        },
-        {
-          id: 5,
           imgSrc: 'https://cdn.xnycloud.com/xny-data/_f26d6f3e95.png',
           title: '111',
           info: '222'
         },
         {
-          id: 10,
+          id: 5,
           imgSrc: 'https://cdn.xnycloud.com/xny-data/Financing_Clean_Energy_Transitionsin_EMD_Es_World_Energy_Investment_2021_Special_Report_29174d6289.png',
           title: '111',
           info: '222'
         },
         {
-          id: 3,
-          imgSrc: 'https://cdn.xnycloud.com/xny-data/_8fa7009f0b.png',
+          id: 6,
+          imgSrc: 'https://cdn.xnycloud.com/xny-data/Renewable_Power_Generation_Costs_in_2020_614291a015.png',
           title: '111',
           info: '222'
         },
@@ -125,7 +129,7 @@ export default defineComponent({
           info: '222'
         },
         {
-          id: 2,
+          id: 10,
           imgSrc: 'https://cdn.xnycloud.com/xny-data/2060_df48245eba.png',
           title: '111',
           info: '222'
@@ -145,7 +149,7 @@ body{
   margin: 0;
 }
 #app {
-  width: 800px;
+  width: 100%;
   margin: 0 auto;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

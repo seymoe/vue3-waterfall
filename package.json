@@ -1,6 +1,6 @@
 {
   "name": "vue3-waterfall",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "file": [
     "dist"
   ],
@@ -15,11 +15,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build-web": "BUILD_TARGET=web npm run build",
     "serve": "vite preview"
   },
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^15.12.4",
+    "@vitejs/plugin-legacy": "^1.4.3",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",
     "typescript": "^4.3.2",

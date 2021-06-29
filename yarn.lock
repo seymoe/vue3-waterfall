@@ -12,6 +12,11 @@
   resolved "https://registry.nlark.com/@babel/parser/download/@babel/parser-7.14.6.tgz#d85cc68ca3cac84eae384c06f032921f5227f4b2"
   integrity sha1-2FzGjKPKyE6uOEwG8DKSH1In9LI=
 
+"@babel/standalone@^7.14.7":
+  version "7.14.7"
+  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.14.7.tgz#68635da005d6a34a0259599e0720d2e73133ecc3"
+  integrity sha512-7RlfMPR4604SbYpj5zvs2ZK587hVhixgU9Pd9Vs8lB8KYtT3U0apXSf0vZXhy8XRh549eUmJOHXhWKTO3ObzOQ==
+
 "@babel/types@^7.12.0", "@babel/types@^7.13.0":
   version "7.14.5"
   resolved "https://registry.nlark.com/@babel/types/download/@babel/types-7.14.5.tgz?cache=0&sync_timestamp=1623280355970&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40babel%2Ftypes%2Fdownload%2F%40babel%2Ftypes-7.14.5.tgz#3bb997ba829a2104cedb20689c4a5b8121d383ff"
@@ -24,6 +29,17 @@
   version "15.12.4"
   resolved "https://registry.nlark.com/@types/node/download/@types/node-15.12.4.tgz?cache=0&sync_timestamp=1624050221758&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-15.12.4.tgz#e1cf817d70a1e118e81922c4ff6683ce9d422e26"
   integrity sha1-4c+BfXCh4RjoGSLE/2aDzp1CLiY=
+
+"@vitejs/plugin-legacy@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@vitejs/plugin-legacy/-/plugin-legacy-1.4.3.tgz#d022275d08e6f1f777891fb405816a9dd41a9f1f"
+  integrity sha512-lxZUJaMWYMQuqvZM1wPzDP6KABQgA/drVL5fnaygEPcz9adc2OHhfFNN/SvvHQ1V0rP8gybIc7uA+iI1gAdkVQ==
+  dependencies:
+    "@babel/standalone" "^7.14.7"
+    core-js "^3.15.1"
+    magic-string "^0.25.7"
+    regenerator-runtime "^0.13.7"
+    systemjs "^6.10.1"
 
 "@vitejs/plugin-vue@^1.2.3":
   version "1.2.3"
@@ -182,6 +198,11 @@ consolidate@^0.16.0:
   integrity sha1-oRhkdokw8vGUMWYKZZBmaPX73BY=
   dependencies:
     bluebird "^3.7.2"
+
+core-js@^3.15.1:
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.1.tgz#6c08ab88abdf56545045ccf5fd81f47f407e7f1a"
+  integrity sha512-h8VbZYnc9pDzueiS2610IULDkpFFPunHwIpl8yRwFahAEEdSpHlTy3h3z3rKq5h11CaUdBEeRViu9AYvbxiMeg==
 
 core-util-is@~1.0.0:
   version "1.0.2"
@@ -486,6 +507,11 @@ readable-stream@^2.0.2, readable-stream@~2.3.6:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
+regenerator-runtime@^0.13.7:
+  version "0.13.7"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
+  integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
+
 resolve@^1.20.0:
   version "1.20.0"
   resolved "https://registry.npm.taobao.org/resolve/download/resolve-1.20.0.tgz?cache=0&sync_timestamp=1615982599966&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fresolve%2Fdownload%2Fresolve-1.20.0.tgz#629a013fb3f70755d6f0b7935cc1c2c5378b1975"
@@ -544,6 +570,11 @@ string_decoder@~1.1.1:
   integrity sha1-nPFhG6YmhdcDCunkujQUnDrwP8g=
   dependencies:
     safe-buffer "~5.1.0"
+
+systemjs@^6.10.1:
+  version "6.10.1"
+  resolved "https://registry.yarnpkg.com/systemjs/-/systemjs-6.10.1.tgz#4a42a9f4ee8dc740c29dc9af631da819ae736c69"
+  integrity sha512-i2HiBOTIsm4GpjpiDHqTscZ/78htyTtdhpcbY2XPbIpsaNDIBA9vtxwIl8kSSnIRO0Zn7SHqvvILu3cMoXQuYw==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

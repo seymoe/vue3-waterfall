@@ -35,6 +35,9 @@ npm i vue3-waterfall --save
     <template v-slot:footer="{ item }">
       <span>{{ item.title }}</span>
     </template>
+    <template v-slot:loading>
+      <span>Loading...</span>
+    </template>
   </waterfall>
 </template>
 
@@ -78,3 +81,14 @@ export default defineComponent({
 | scrollDelay | Scrolling throttle (ms) | 200 |
 | scrollDistance | trigger distance (px) | Number | 0 |
 | scrollImmediate | Whether to execute the loading method immediately, in case the content cannot be filled up in the initial state. | Boolean | true |
+
+### Slots
+
+| Name | Description
+| :-----| :---- |
+| default | Default slot, Custom content for image. |
+| footer | Custom content for footer. |
+| loading | Custom content for loading status. |
+## License
+
+Released under the [MIT](LICENSE) License.

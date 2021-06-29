@@ -33,6 +33,10 @@ npm i vue3-waterfall --save
     <template v-slot:footer="{ item }">
       <span>{{ item.title }}</span>
     </template>
+    <!-- 自定义加载状态标示 -->
+    <template v-slot:loading>
+      <span>正在拼命加载中...</span>
+    </template>
   </waterfall>
 </template>
 
@@ -76,3 +80,15 @@ export default defineComponent({
 | scrollDelay | 滚动节流（ms） | 200 |
 | scrollDistance | 滚动触底距离（px） | Number | 0 |
 | scrollImmediate | 是否立即执行加载方法，以防初始状态下内容无法撑满容器 | Boolean | true |
+
+### 插槽
+
+| 名称 | 说明
+| :-----| :---- |
+| default | 默认插槽，传入数据项，自定义图片展示结构 |
+| footer | 自定义底部信息块 |
+| loading | 自定义加载状态 |
+
+## License
+
+Released under the [MIT](LICENSE) License.
