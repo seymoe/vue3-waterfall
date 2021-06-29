@@ -7,7 +7,7 @@ console.log('当前构建方式：', process.env.BUILD_TARGET)
 
 const buildForWeb = {
   target: 'es2015',
-  outDir: 'example'
+  outDir: 'docs'
 }
 
 const buildForLib = {
