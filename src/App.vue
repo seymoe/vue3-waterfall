@@ -2,7 +2,7 @@
   <waterfall
     :list="list"
     :cols="4"
-    :footerHeight="60"
+    :footerHeight="0"
     :gap="15"
     :scrollDistance="10"
     @preLoaded="loadedEnd"
@@ -41,7 +41,7 @@ export default defineComponent({
   },
   methods: {
     loadMore() {
-      if (this.list.length > 20) {
+      if (this.list.length > 100) {
         this.list = []
       }
       setTimeout(() => {
@@ -156,7 +156,10 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-
+.imgbox{
+  border-radius: 6px;
+  overflow: hidden;
+}
 .imgbox img{
   display: block;
   width: 100%;

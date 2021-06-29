@@ -133,7 +133,6 @@ export default defineComponent({
     }
 
     const preload = () => {
-      console.log('当前索引：', state)
       if (state.isPreloading || !props.list.length) return false
       state.isPreloading = true
       for (let i = state.beginIndex; i < props.list.length; i++) {
@@ -152,7 +151,6 @@ export default defineComponent({
             item._error = true
             ctx.emit('imageError', item)
           }
-          console.log('i:', i, state.beginIndex, state.waterfallList)
           if (i === props.list.length - 1) {
             state.beginIndex = state.waterfallList.length
             ctx.emit('preLoaded')
@@ -180,13 +178,9 @@ export default defineComponent({
       if (state.isPreloading) return false
       const scrollEl = scrollElRef.value
       const minHeight = Math.max.apply(null, state.heightArr)
-      if (scrollEl !== null) {
-        console.log(scrollEl?.scrollTop + scrollEl?.offsetHeight + props.gap, minHeight - props.scrollDistance)
-      }
       if (scrollEl !== null && scrollEl.scrollTop + scrollEl.offsetHeight + props.gap >= minHeight - props.scrollDistance) {
         state.isPreloading = true
         ctx.emit('scrollReachBottom') // 滚动触底
-        console.log('触底')
       }
     }
 
@@ -197,7 +191,6 @@ export default defineComponent({
     }
 
     watch(() => props.list, (val, oldVal) => {
-      console.log('变动', val, oldVal)
       if (val.length) {
         // 首次
         if (!oldVal || !oldVal.length) {

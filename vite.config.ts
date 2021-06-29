@@ -5,6 +5,8 @@ import path from 'path'
 
 console.log('当前构建方式：', process.env.BUILD_TARGET)
 
+const isWeb = process.env.BUILD_TARGET === 'web'
+
 const buildForWeb = {
   target: 'es2015',
   outDir: 'docs'
@@ -30,6 +32,6 @@ const buildForLib = {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/vue3-waterfall/',
-  plugins: [vue(), process.env.BUILD_TARGET === 'web' ? legacy() : null],
-  build: process.env.BUILD_TARGET === 'web' ? buildForWeb : buildForLib
+  plugins: [vue(), isWeb ? legacy() : null],
+  build: isWeb ? buildForWeb : buildForLib
 })

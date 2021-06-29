@@ -1,6 +1,16 @@
 {
   "name": "vue3-waterfall",
-  "version": "0.1.3",
+  "version": "0.1.4",
+  "description": "A waterfall component build with Vue3、Typescript and Vite.",
+  "author": {
+    "name": "seymoe",
+    "email": "seymoe@yeah.net",
+    "url": "https://github.com/seymoe"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seymoe/vue3-waterfall"
+  },
   "file": [
     "dist"
   ],
@@ -28,5 +38,6 @@
     "vite": "^2.3.7",
     "vue": "^3.1.1",
     "vue-tsc": "^0.0.24"
-  }
+  },
+  "license": "MIT"
 }

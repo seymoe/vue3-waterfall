@@ -1,6 +1,6 @@
 # Vue3 Waterfall
 
-基于 Vue 3 和 Typescript 的瀑布流插件，通过 Vite 构建
+基于 Vue 3 和 Typescript 的瀑布流插件，通过 Vite 构建.
 
 ## 用法
 

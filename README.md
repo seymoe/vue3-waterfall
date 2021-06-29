@@ -1,8 +1,10 @@
 # Vue3 Waterfall
 
-Vue3 Waterfall Component build with Vue 3 and Typescript in Vite.
+A waterfall component build with Vue3、Typescript and Vite.
+
 
 ### [中文文档](https://github.com/seymoe/vue3-waterfall/blob/master/README-CN.md)
+
 
 ## Usage
 
