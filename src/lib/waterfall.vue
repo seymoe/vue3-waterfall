@@ -152,7 +152,7 @@ export default defineComponent({
             ctx.emit('imageError', item)
           }
           if (i === props.list.length - 1) {
-            state.beginIndex = state.waterfallList.length
+            state.beginIndex = props.list.length
             ctx.emit('preLoaded')
             state.isPreloading = false
             // 判断是否自动加载
@@ -194,6 +194,7 @@ export default defineComponent({
       if (val.length) {
         // 首次
         if (!oldVal || !oldVal.length) {
+          console.log('watch了！ ', val, oldVal)
           nextTick(() => {
             initWaterfall()
           })
