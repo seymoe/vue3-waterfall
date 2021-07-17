@@ -20,16 +20,21 @@
       </div>
     </div>
     <!-- 加载更多 -->
-    <div class="vue3-waterfall-loading" v-if="isPreloading">
+    <div class="vue3-waterfall-loading" v-if="isPreloading && list.length < total">
       <slot name="loading">
         加载中...
+      </slot>
+    </div>
+    <div class="vue3-waterfall-nomore" v-if="list.length >= total">
+      <slot name="nomore">
+        没有更多数据了
       </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, onMounted, onUnmounted, watch, nextTick, Ref } from 'vue'
+import { defineComponent, reactive, ref, toRefs, onMounted, onUnmounted, watch, nextTick, Ref, computed } from 'vue'
 
 interface IWaterfallProps {
   width?: number
@@ -39,6 +44,7 @@ interface IWaterfallProps {
   cols?: number
   footerHeight: number
   list: any[]
+  total: number
   scrollDisabled: boolean
   scrollDelay: number
   scrollDistance: number
@@ -65,6 +71,11 @@ export default defineComponent({
     list: {
       type: Array,
       default: () => ([])
+    },
+    // 总数据条数
+    total: {
+      type: Number,
+      default: 0
     },
     // 是否禁用滚动加载
     scrollDisabled: {
@@ -109,6 +120,9 @@ export default defineComponent({
       isPreloading: false
     })
     const scrollElRef: Ref<HTMLDivElement | null> = ref(null)
+    const noMore = computed(() => {
+      return props.list.length >= props.total
+    })
 
     const initWaterfall = () => {
       // 初始化容器宽度
@@ -133,7 +147,8 @@ export default defineComponent({
     }
 
     const preload = () => {
-      if (state.isPreloading || !props.list.length) return false
+      console.log(state, props, noMore.value)
+      if (state.isPreloading || !props.list.length || noMore.value) return false
       state.isPreloading = true
       for (let i = state.beginIndex; i < props.list.length; i++) {
         const item = props.list[i]
@@ -175,7 +190,7 @@ export default defineComponent({
     }
 
     const scrollFn = () => {
-      if (state.isPreloading) return false
+      if (state.isPreloading || noMore.value) return false
       const scrollEl = scrollElRef.value
       const minHeight = Math.max.apply(null, state.heightArr)
       if (scrollEl !== null && scrollEl.scrollTop + scrollEl.offsetHeight + props.gap >= minHeight - props.scrollDistance) {
@@ -266,6 +281,11 @@ export default defineComponent({
 .vue3-waterfall-loading{
   position: absolute;
   bottom: 15px;
+  width: 100%;
+  text-align: center;
+}
+.vue3-waterfall-nomore{
+  padding: 20px 0;
   width: 100%;
   text-align: center;
 }

@@ -21,6 +21,7 @@ npm i vue3-waterfall --save
     :list="list"
     :cols="4"
     :footerHeight="60"
+    :total="total"
     @preLoaded="loadedEnd"
     @scrollReachBottom="loadMore">
     <!-- 自定义图片 -->
@@ -37,6 +38,9 @@ npm i vue3-waterfall --save
     <template v-slot:loading>
       <span>正在拼命加载中...</span>
     </template>
+    <template v-slot:nomore>
+      <span>没有更多数据了...</span>
+    </template>
   </waterfall>
 </template>
 
@@ -47,7 +51,8 @@ import VueWaterfall from 'vue3-waterfall'
 export default defineComponent({
   data() {
     return {
-      list: []
+      list: [],
+      total: 30
     }
   },
   components: {
@@ -75,6 +80,7 @@ export default defineComponent({
 | cols | 列数，不能与 `colWidth` 属性共用 | Number | 0 |
 | colWidth | 列宽（px），不能与 `cols` 属性共用 | Number | 240 |
 | gap | 间隔宽度（px） | Number | 15 |
+| total | 数据总条数 | Number | 0 |
 | footerHeight | 图片底部信息块高度（px），用于展示其他信息 | Number | 0 |
 | scrollDisabled | 是否禁用滚动加载 | Boolean | false |
 | scrollDelay | 滚动节流（ms） | 200 |

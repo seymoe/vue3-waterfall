@@ -5,6 +5,7 @@
     :footerHeight="0"
     :gap="15"
     :scrollDistance="10"
+    :total="total"
     @preLoaded="loadedEnd"
     @scrollReachBottom="loadMore">
     <template v-slot:default="{ item }">
@@ -18,6 +19,9 @@
     <template v-slot:loading>
       <span>正在拼命加载中...</span>
     </template>
+    <template v-slot:nomore>
+      <span>没有更多数据了...</span>
+    </template>
   </waterfall>
 </template>
 
@@ -27,13 +31,15 @@ import Waterfall from './lib'
 
 interface AppState {
   list: any[]
+  total: number
 }
 
 export default defineComponent({
   name: 'App',
   data() : AppState {
     return {
-      list: []
+      list: [],
+      total: 30
     }
   },
   components: {
@@ -41,9 +47,6 @@ export default defineComponent({
   },
   methods: {
     loadMore() {
-      if (this.list.length > 100) {
-        this.list = []
-      }
       setTimeout(() => {
         this.list = this.list.concat([
           {
