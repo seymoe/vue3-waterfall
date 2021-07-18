@@ -5,7 +5,7 @@
     :footerHeight="0"
     :gap="15"
     :scrollDistance="10"
-    :total="total"
+    :nomore="noMore"
     @preLoaded="loadedEnd"
     @scrollReachBottom="loadMore">
     <template v-slot:default="{ item }">
@@ -31,7 +31,7 @@ import Waterfall from './lib'
 
 interface AppState {
   list: any[]
-  total: number
+  noMore: boolean
 }
 
 export default defineComponent({
@@ -39,7 +39,7 @@ export default defineComponent({
   data() : AppState {
     return {
       list: [],
-      total: 30
+      noMore: false
     }
   },
   components: {
@@ -47,6 +47,7 @@ export default defineComponent({
   },
   methods: {
     loadMore() {
+      if (this.noMore) return
       setTimeout(() => {
         this.list = this.list.concat([
           {
@@ -68,6 +69,9 @@ export default defineComponent({
             info: '222'
           }
         ])
+        if (this.list.length >= 13) {
+          this.noMore = true
+        }
       }, 1000)
     },
     loadedEnd() {

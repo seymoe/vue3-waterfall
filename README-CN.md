@@ -21,7 +21,7 @@ npm i vue3-waterfall --save
     :list="list"
     :cols="4"
     :footerHeight="60"
-    :total="total"
+    :nomore="noMore"
     @preLoaded="loadedEnd"
     @scrollReachBottom="loadMore">
     <!-- 自定义图片 -->
@@ -52,7 +52,7 @@ export default defineComponent({
   data() {
     return {
       list: [],
-      total: 30
+      noMore: false
     }
   },
   components: {
@@ -61,6 +61,9 @@ export default defineComponent({
   methods: {
     loadMore() {
       console.log('加载更多')
+      if (this.list.length >= 30) {
+        this.noMore = true
+      }
     },
     loadedEnd() {
       console.log('图片预加载完成')
@@ -80,7 +83,7 @@ export default defineComponent({
 | cols | 列数，不能与 `colWidth` 属性共用 | Number | 0 |
 | colWidth | 列宽（px），不能与 `cols` 属性共用 | Number | 240 |
 | gap | 间隔宽度（px） | Number | 15 |
-| total | 数据总条数 | Number | 0 |
+| nomore | 是否有更多数据可加载 | Boolean | false |
 | footerHeight | 图片底部信息块高度（px），用于展示其他信息 | Number | 0 |
 | scrollDisabled | 是否禁用滚动加载 | Boolean | false |
 | scrollDelay | 滚动节流（ms） | 200 |
@@ -94,6 +97,7 @@ export default defineComponent({
 | default | 默认插槽，传入数据项，自定义图片展示结构 |
 | footer | 自定义底部信息块 |
 | loading | 自定义加载状态 |
+| nomore | 自定义无数据状态 |
 
 ## License
 

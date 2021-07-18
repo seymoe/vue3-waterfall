@@ -1,7 +1,8 @@
 {
   "name": "vue3-waterfall",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "A waterfall component build with Vue3、Typescript and Vite.",
+  "keywords": ["vue3-waterfall", "vue-waterfall", "waterfall", "Vite"],
   "author": {
     "name": "seymoe",
     "email": "seymoe@yeah.net",

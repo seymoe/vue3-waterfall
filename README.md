@@ -25,7 +25,7 @@ npm i vue3-waterfall --save
     :list="list"
     :cols="4"
     :footerHeight="60"
-    :total="total"
+    :nomore="noMore"
     @preLoaded="loadedEnd"
     @scrollReachBottom="loadMore">
     <!-- Customize Image box -->
@@ -55,7 +55,7 @@ export default defineComponent({
   data() {
     return {
       list: [],
-      total: 30
+      noMore: false
     }
   },
   components: {
@@ -64,6 +64,9 @@ export default defineComponent({
   methods: {
     loadMore() {
       console.log('Load More...')
+      if (this.list.length >= 30) {
+        this.noMore = true
+      }
     },
     loadedEnd() {
       console.log('Images preload done.')
@@ -83,7 +86,7 @@ export default defineComponent({
 | cols | columns, cannot use with `colWidth` attribute. | Number | 0 |
 | colWidth | column width（px），cannot use with `cols` attribute. | Number | 240 |
 | gap | gap width (px) | Number | 15 |
-| total | data total counts | Number | 0 |
+| nomore | whether has more data | Boolean | false |
 | footerHeight | footer height（px）, it can show other info what u want. | Number | 0 |
 | scrollDisabled | Disable scrolling | Boolean | false |
 | scrollDelay | Scrolling throttle (ms) | 200 |
@@ -97,6 +100,7 @@ export default defineComponent({
 | default | Default slot, Custom content for image. |
 | footer | Custom content for footer. |
 | loading | Custom content for loading status. |
+| nomore | Custom content for no more data. |
 ## License
 
 Released under the [MIT](LICENSE) License.
